@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
@@ -11,15 +13,13 @@ class SeriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         
-        $series=[
-            'American Horros History',
-            'Breaking Bad',
-            'Chaves',
-            'Carrossel'
-        ];
+        $series= Serie::all();
+        // $series= DB::select('SELECT nome FROM series;');
+        // dd($series);
+
         return view('series.index',compact('series'));
         // return view('listar-series',['series'=>$series]);
 
@@ -45,7 +45,13 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nomeDaSerie= $request->input('nome');
+        // DB::insert('INSERT INTO series (nome) VALUES (?)',[$nomeDaSerie]);
+        $serie = new Serie();
+        $serie->nome = $nomeDaSerie;
+        $serie->save();
+        
+        return redirect('/series');
     }
 
     /**
