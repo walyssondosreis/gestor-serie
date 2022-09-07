@@ -6,6 +6,8 @@
         <input type="text" class="form-control" id="nome" name="nome">
         <div class="form-text mb-3">Insira o nome da sua série favorita</div>
         <button type="submit" class="btn btn-primary mb-3">Adicionar</button>
-        
+        <a href="/series" class="btn btn-dark mb-3" >Cancelar</a>
     </form>
+    
+
 </x-layout>

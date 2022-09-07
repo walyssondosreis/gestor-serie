@@ -45,11 +45,18 @@ class SeriesController extends Controller
      */
     public function store(Request $request)
     {
-        $nomeDaSerie= $request->input('nome');
+        // $nomeDaSerie= $request->input('nome');
+        // $nomeDaSerie= $request->nome;
+
         // DB::insert('INSERT INTO series (nome) VALUES (?)',[$nomeDaSerie]);
-        $serie = new Serie();
-        $serie->nome = $nomeDaSerie;
-        $serie->save();
+        // $serie = new Serie();
+        // $serie->nome = $nomeDaSerie;
+        // $serie->save();
+
+        //$request->all() Irá pegar todos os campos da requisição.
+        //$request->only(['nome']) Irá pegar apenas os campos informado no array.
+        //$request->except(['nome']) Irá pegar tudo menos os campos informado no array.
+        Serie::create($request->all());
         
         return redirect('/series');
     }
