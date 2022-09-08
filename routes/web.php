@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect('/series');
+    // return redirect('/series');
+    return to_route('series.index');
 });
 
 // Route::get('/teste',function(){
@@ -27,9 +28,11 @@ Route::get('/', function () {
 // Route::get('/series/criar',[SeriesController::class,'create']);
 // Route::post('/series/salvar',[SeriesController::class,'store']);
 
-Route::controller(SeriesController::class)->group(function(){
-    Route::get('/series','index');
-    Route::get('/series/criar','create');
-    Route::post('/series/salvar','store');
-});
+// Route::controller(SeriesController::class)->group(function(){
+//     Route::get('/series','index')->name('series.index');
+//     Route::get('/series/criar','create')->name('series.create');
+//     Route::post('/series/salvar','store')->name('series.store');
+// });
 
+/* A função resource irá definir rotas padrões de index, create store etc. segundo padrão*/ 
+Route::resource('/series',SeriesController::class);

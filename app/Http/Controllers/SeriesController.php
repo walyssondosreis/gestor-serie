@@ -58,7 +58,9 @@ class SeriesController extends Controller
         //$request->except(['nome']) Irá pegar tudo menos os campos informado no array.
         Serie::create($request->all());
         
-        return redirect('/series');
+        // return redirect('/series');
+        // return redirect()->route('series.index');
+        return to_route('series.index');
     }
 
     /**
