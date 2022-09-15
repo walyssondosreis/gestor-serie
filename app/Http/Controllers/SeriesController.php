@@ -13,14 +13,19 @@ class SeriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         
         $series= Serie::all();
         // $series= DB::select('SELECT nome FROM series;');
         // dd($series);
 
-        return view('series.index',compact('series'));
+        // Função session manupula a session diretamente
+        $mensagemSucesso= session('mensagem.sucesso'); 
+        // $mensagemSucesso= $request->session()->get('mensagem.sucesso');
+        // $request->session()->forget('mensagem.sucesso');
+
+        return view('series.index',compact('series','mensagemSucesso'));
         // return view('listar-series',['series'=>$series]);
 
         // Request obtem da superglobal $__REQUEST
@@ -57,7 +62,12 @@ class SeriesController extends Controller
         //$request->only(['nome']) Irá pegar apenas os campos informado no array.
         //$request->except(['nome']) Irá pegar tudo menos os campos informado no array.
         Serie::create($request->all());
-        
+
+
+        $request->session()->flash('mensagem.sucesso','Serie adicionada com sucesso');
+
+        // Utilizando a função helper session() o cache de session não é limpo
+        // session(['mensagem.sucesso'=>'Serie adicionada com sucesso']);
         // return redirect('/series');
         // return redirect()->route('series.index');
         return to_route('series.index');
@@ -103,8 +113,14 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // dd($request->serie);
+        Serie::destroy($request->series);
+
+        // $request->session()->put('mensagem.sucesso','Série removida com sucesso');
+        $request->session()->flash('mensagem.sucesso','Série removida com sucesso');
+
+        return to_route('series.index');
     }
 }

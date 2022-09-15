@@ -34,5 +34,11 @@ Route::get('/', function () {
 //     Route::post('/series/salvar','store')->name('series.store');
 // });
 
-/* A função resource irá definir rotas padrões de index, create store etc. segundo padrão*/ 
-Route::resource('/series',SeriesController::class);
+/* A função resource irá definir rotas padrões de index, create store etc. segundo padrão*/
+// Ira definir o controler pra todas as rotas padrão.
+// Route::resource('/series',SeriesController::class); 
+// Ira definir o controler apenas pra as rotas especificadas padrão.
+Route::resource('/series', SeriesController::class)
+    ->only(['index', 'create', 'store','destroy']);
+
+// Route::post('/series/destroy/{serie}',[SeriesController::class, 'destroy'])->name('series.destroy');
