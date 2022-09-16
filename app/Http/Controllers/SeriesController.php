@@ -61,10 +61,10 @@ class SeriesController extends Controller
         //$request->all() Irá pegar todos os campos da requisição.
         //$request->only(['nome']) Irá pegar apenas os campos informado no array.
         //$request->except(['nome']) Irá pegar tudo menos os campos informado no array.
-        Serie::create($request->all());
+        $serie = Serie::create($request->all());
 
 
-        $request->session()->flash('mensagem.sucesso','Serie adicionada com sucesso');
+        $request->session()->flash('mensagem.sucesso',"Serie '{$serie->nome}' adicionada com sucesso");
 
         // Utilizando a função helper session() o cache de session não é limpo
         // session(['mensagem.sucesso'=>'Serie adicionada com sucesso']);
@@ -113,13 +113,14 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Serie $series ,Request $request)
     {
         // dd($request->serie);
-        Serie::destroy($request->series);
+        // Serie::destroy($request->series);
+        $series->delete();
 
         // $request->session()->put('mensagem.sucesso','Série removida com sucesso');
-        $request->session()->flash('mensagem.sucesso','Série removida com sucesso');
+        $request->session()->flash('mensagem.sucesso',"Série '{$series->nome}' removida com sucesso");
 
         return to_route('series.index');
     }
