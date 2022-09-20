@@ -39,6 +39,7 @@ Route::get('/', function () {
 // Route::resource('/series',SeriesController::class); 
 // Ira definir o controler apenas pra as rotas especificadas padrão.
 Route::resource('/series', SeriesController::class)
-    ->only(['index', 'create', 'store','destroy']);
+    ->except(['show']);
+    // ->only(['index', 'create', 'store','destroy', 'edit','update']);
 
 // Route::post('/series/destroy/{serie}',[SeriesController::class, 'destroy'])->name('series.destroy');
