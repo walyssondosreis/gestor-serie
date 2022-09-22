@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeriesFormRequest;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,12 +17,14 @@ class SeriesController extends Controller
     public function index(Request $request)
     {
         
-        $series= Serie::all();
+        // $series= Serie::all(); // Utilizando lazy loading 
+        $series= Serie::with(['temporadas'])->get(); // Utilizando Eager Loading
+
         // $series= DB::select('SELECT nome FROM series;');
         // dd($series);
 
         // Função session manupula a session diretamente
-        $mensagemSucesso= session('mensagem.sucesso'); 
+        $mensagemSucesso= session('mensagem.sucesso');  
         // $mensagemSucesso= $request->session()->get('mensagem.sucesso');
         // $request->session()->forget('mensagem.sucesso');
 
@@ -48,7 +51,7 @@ class SeriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SeriesFormRequest $request)
     {
         // $nomeDaSerie= $request->input('nome');
         // $nomeDaSerie= $request->nome;
@@ -62,9 +65,9 @@ class SeriesController extends Controller
         //$request->only(['nome']) Irá pegar apenas os campos informado no array.
         //$request->except(['nome']) Irá pegar tudo menos os campos informado no array.
 
-        $request->validate([
-            'nome'=>['required','min:3']
-        ]);
+        // $request->validate([
+        //     'nome'=>['required','min:3']
+        // ]);
         
         $serie = Serie::create($request->all());
 
@@ -97,6 +100,7 @@ class SeriesController extends Controller
      */
     public function edit(Serie $series)
     {
+        // dd($series->temporadas);
         return view('series.edit')->with('serie',$series);
     }
 
@@ -107,7 +111,7 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Serie $series)
+    public function update(SeriesFormRequest $request,Serie $series)
     {
         // $series->nome = $request->nome ;
         $series->fill($request->all()); //Pega todos os campos da requisição
