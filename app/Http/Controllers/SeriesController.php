@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SeriesFormRequest;
+use App\Models\Episode;
+use App\Models\Season;
 use App\Models\Serie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,9 +70,29 @@ class SeriesController extends Controller
         // $request->validate([
         //     'nome'=>['required','min:3']
         // ]);
-        
+        // dd($request->all());
         $serie = Serie::create($request->all());
-
+        $seasons = [];
+        for($i=1; $i <= $request->seasonsQty; $i++){
+            // $season = $serie->seassons()->create([
+            //     'numero' => $i
+            // ]);
+            $seasons[]=[
+                'series_id' => $serie->id,
+                'numero'=>$i
+            ];
+        }
+        Season::insert($seasons);
+        $episodes = [];
+        foreach($serie->temporadas as $season){
+            for($j=1; $j <= $request->episodesPerSeason; $j++){
+                $episodes[]=[
+                    'season_id' => $season->id,
+                    'numero'=> $j
+                ];
+            }
+        }
+        Episode::insert($episodes);
 
         // $request->session()->flash('mensagem.sucesso',"Serie '{$serie->nome}' adicionada com sucesso");
 
@@ -78,6 +100,7 @@ class SeriesController extends Controller
         // session(['mensagem.sucesso'=>'Serie adicionada com sucesso']);
         // return redirect('/series');
         // return redirect()->route('series.index');
+
         return to_route('series.index')->with('mensagem.sucesso',"Serie '{$serie->nome}' adicionada com sucesso");
     }
 
