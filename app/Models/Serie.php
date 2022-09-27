@@ -22,6 +22,7 @@ class Serie extends Model
         // return $this->hasMany(Season::class,'series_id','id');
         return $this->hasMany(Season::class,'series_id');
     }
+    
     protected static function booted()
     {
         self::addGlobalScope('ordered', function(Builder $queryBuilder){

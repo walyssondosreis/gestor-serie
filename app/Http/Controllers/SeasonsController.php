@@ -11,7 +11,10 @@ class SeasonsController extends Controller
     public function index(Serie $series)
     {
         $seasons = $series->temporadas();
-        dd($seasons);
+        foreach($seasons as $sea){
+            print_r($sea->numero);
+        }
+        
         return view('seasons.index')->with('seasons',$seasons);
     }
 }
