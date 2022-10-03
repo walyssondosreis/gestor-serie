@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 
 class SeasonsController extends Controller
 {
-    
-    public function index(Serie $series)
+
+    public function index(Serie $serie)
     {
-        $seasons = $series->temporadas();
-        foreach($seasons as $sea){
-            print_r($sea->numero);
-        }
-        
-        return view('seasons.index')->with('seasons',$seasons);
+        $seasons = $serie->temporadas()
+            ->with('episodes')->get();
+        // dd($seasons);
+        // foreach($seasons as $sea){
+        //     print_r($sea->numero);
+        // }
+        // exit();
+
+        return view('seasons.index')
+            ->with('seasons', $seasons)
+            ->with('serie', $serie);
     }
 }
