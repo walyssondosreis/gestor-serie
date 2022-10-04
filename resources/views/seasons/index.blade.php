@@ -1,8 +1,8 @@
 <!-- HTML UTILIZANDO COMPONENTE BLADE  DO LARAVEL -->
 <x-layout title="Temporadas" >
-
     <ul class="list-group">
-        @foreach ($seasons as $season)
+        
+        @foreach($seasons as $season)
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Temporada {{ $season->numero }}
             <span class="badge bg-secondary">
