@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     // return view('welcome');
     // return redirect('/series');
-    return to_route('series.index');
+    // return to_route('series.index');
+    return redirect('/series');
 });
 
 // Route::get('/teste',function(){
