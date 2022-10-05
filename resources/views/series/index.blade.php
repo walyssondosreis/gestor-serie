@@ -1,5 +1,5 @@
 <!-- HTML UTILIZANDO COMPONENTE BLADE  DO LARAVEL -->
-<x-layout title="{{ __('messages.app_name') }}" >
+<x-layout title="Séries" >
     <a href={{ route('series.create') }} class="btn btn-primary mb-3">Adicionar</a>
 
     @isset($mensagemSucesso)

@@ -19,8 +19,9 @@ class SeriesController extends Controller
     public function index(Request $request)
     {
         
-        // $series= Serie::all(); // Utilizando lazy loading 
-        $series= Serie::with(['temporadas'])->get(); // Utilizando Eager Loading
+        $series= Serie::all(); // Utilizando lazy loading 
+
+        // $series= Serie::with(['temporadas'])->get(); // Utilizando Eager Loading
 
         // $series= DB::select('SELECT nome FROM series;');
         // dd($series);

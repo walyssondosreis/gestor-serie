@@ -19,6 +19,7 @@ class Serie extends Model
 
     public function temporadas()
     {
+        // echo('TOMA');
         // return $this->hasMany(Season::class,'series_id','id');
         return $this->hasMany(Season::class,'series_id');
     }

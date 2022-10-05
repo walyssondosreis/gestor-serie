@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 class SeasonsController extends Controller
 {
 
-    public function index(Serie $serie)
+    public function index(Serie $series)
     {
-        $seasons = $serie->temporadas()
+        $seasons = $series->temporadas()
             ->with('episodes')->get();
-        // dd($seasons);
+        // print_r($seasons);
+        // exit();
         // foreach($seasons as $sea){
         //     print_r($sea->numero);
         // }
@@ -20,6 +21,6 @@ class SeasonsController extends Controller
 
         return view('seasons.index')
             ->with('seasons', $seasons)
-            ->with('serie', $serie);
+            ->with('serie', $series);
     }
 }
